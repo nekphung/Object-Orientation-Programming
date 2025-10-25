@@ -1,0 +1,86 @@
+﻿1. Generalization (Kế thừa)
+        - Quan hệ "is-a" (là một).
+        - Class con kế thừa class cha, dùng lại và mở rộng thuộc tính/phương thức.
+        - Ví dụ: 
+    class Account {
+        protected:
+        int id;
+        double balance;
+        public:
+        void deposit(double amount) { balance += amount; }
+    };
+
+    class SavingsAccount : public Account {
+        private:
+        double interestRate;
+        public:
+        void addInterest() { balance += balance * interestRate; }
+    };
+   👉 SavingsAccount is a Account.
+
+
+2. Association (Kết hợp)
+         - Quan hệ "uses-a" (sử dụng).
+         - Một class có tham chiếu (pointer, reference, object) đến class khác.
+         - Ví dụ:
+      class Customer {
+          private:
+            string name;
+          public:
+            Customer(string n) : name(n) {}
+            string getName() { return name; }
+      };
+
+      class Order {
+          private:
+            Customer* customer; // Association
+          public:
+            Order(Customer* c) : customer(c) {}
+            void printOrder() { cout << "Order of " << customer->getName(); }
+      };
+    👉 Order uses Customer.
+
+
+3. Aggregation (Tập hợp)
+         - Quan hệ "has-a" (có chứa), nhưng vòng đời độc lập.
+         - Nếu object cha bị xóa, object con vẫn tồn tại.
+         - Ví dụ:
+      class Department {
+          private:
+            string name;
+          public:
+            Department(string n) : name(n) {}
+      };
+
+      class University {
+          private:
+            vector<Department*> departments; // Aggregation
+          public:
+            void addDepartment(Department* d) { departments.push_back(d); }
+      };
+    👉 University has Department, nhưng nếu University bị xóa, Department vẫn tồn tại độc lập.
+
+
+4. Composition (Thành phần - "chặt chẽ")
+         - Quan hệ "owns-a" (sở hữu), vòng đời phụ thuộc.
+         - Nếu object cha bị xóa, object con cũng bị xóa theo.
+         - Ví dụ:
+      class Engine {
+          public:
+            void start() { cout << "Engine started\n"; }
+      };
+
+      class Car {
+          private:
+            Engine engine;  // Composition
+          public:
+            void startCar() { engine.start(); }
+      };
+     👉 Car owns Engine. Khi Car bị hủy, Engine cũng bị hủy.
+
+
+📌 Tóm lại:
+ - Generalization → is-a (Kế thừa).
+ - Association → uses-a (Kết hợp lỏng lẻo).
+ - Aggregation → has-a (sở hữu nhưng vòng đời độc lập).
+ - Composition → owns-a (sở hữu chặt chẽ, vòng đời phụ thuộc).

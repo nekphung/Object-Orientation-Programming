@@ -42,7 +42,7 @@ public:
     }
     
     // Move constructor
-    Buffer(Buffer&& other) noexcept
+    Buffer(Buffer&& other) 
         : size(other.size), data(other.data)
     {
         other.size = 0; // gan lai cai cu = 0 
@@ -51,7 +51,7 @@ public:
     }
 
     // Move assignment
-    Buffer& operator=(Buffer&& other) noexcept {
+    Buffer& operator=(Buffer&& other) {
         if (this != &other) {
             delete[] data;          // Giải phóng bộ nhớ hiện tại
             size = other.size;
